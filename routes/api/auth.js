@@ -69,6 +69,61 @@ router.post("/register", (req, res) => {
 //      @desc       route for login for user
 //      @access     PUBLIC
 
-router.post("/login", (req, res) => {});
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  //finding email and password from database
+  Person.findOne({ email })
+    .then(person => {
+      if (!person) {
+        return res.json({ message: "email does not exists" });
+      }
+
+      //if email exists then go ahead
+      //comparing plain password with hash one
+      bcryptjs
+        .compare(password, person.password)
+        .then(result => {
+          //if result is true then it means password matched
+          if (!result) {
+            //password does not matched
+            return res.status(404).json({ message: "invalid password" });
+          }
+
+          //password matched then go ahead
+          //   return res.status(200).json({ message: "access granted" });
+
+          //making data or payload
+          const data = {
+            id: person.id,
+            name: person.name,
+            email: person.email
+          };
+
+          //assigning a token for the user ,when he /she signed in
+          jsonWebToken.sign(
+            data,
+            key.secret,
+            {
+              expiresIn: 60 * 60
+            },
+            (err, token) => {
+              if (err) throw err;
+              return res.json({
+                sucess: true,
+                token: `brearer ${token}`
+              });
+            }
+          );
+        })
+        .catch(err => {
+          throw err;
+        });
+    })
+    .catch(err => {
+      throw err;
+    });
+});
 
 module.exports = router;
