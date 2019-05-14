@@ -126,4 +126,17 @@ router.post("/login", (req, res) => {
     });
 });
 
+//      @type       GET
+//      @route      /api/auth/profile
+//      @desc       route for profile of user
+//      @access     PRIVATE
+
+router.get(
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+  }
+);
+
 module.exports = router;
