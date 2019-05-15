@@ -14,7 +14,7 @@ const ProfileSchema = new Schema({
   website: {
     type: String
   },
-  Country: {
+  country: {
     type: String
   },
   languages: {
@@ -40,8 +40,7 @@ const ProfileSchema = new Schema({
         max: 50
       },
       from: {
-        type: Date,
-        required: true
+        type: Date
       },
       to: {
         type: Date
@@ -65,6 +64,10 @@ const ProfileSchema = new Schema({
     insta: {
       type: String
     }
+  },
+  date: {
+    type: String,
+    default: Date().now
   }
 });
 
