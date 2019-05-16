@@ -7,6 +7,7 @@ const passport = require("passport");
 const authjs = require("./routes/api/auth");
 const profile = require("./routes/api/profile");
 const question = require("./routes/api/question");
+const answer = require("./model/Answer");
 
 //importing
 const utilsMongoose = require("./utils/mongoose");
@@ -37,6 +38,7 @@ app.use(bodyParser.json());
 app.use("/api/auth", authjs);
 app.use("/api/profile", profile);
 app.use("/api/question", question);
+app.use("/api/answer", answer);
 
 //listing to the port
 app.listen(PORT, err => {
