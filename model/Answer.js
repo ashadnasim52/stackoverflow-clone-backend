@@ -3,17 +3,13 @@ const Schema = mongoose.Schema;
 const answerSchema = new Schema({
   QuestionId: {
     type: Schema.Types.ObjectId,
-    default: true
+    required: true
   },
   authorId: {
     type: String
   },
   answers: [
     {
-      answerId: {
-        type: String,
-        required: true
-      },
       answer: {
         type: String,
         required: true
@@ -30,8 +26,7 @@ const answerSchema = new Schema({
       },
       vote: {
         sum: {
-          type: Number,
-          required: true
+          type: Number
         },
         upvote: [],
         downvote: []

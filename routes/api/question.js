@@ -5,6 +5,7 @@ const passport = require("passport");
 // P16721
 
 const Question = require("../../model/Question");
+const Answer = require("../../model/Answer");
 
 /**
  * question
@@ -41,7 +42,21 @@ router.post(
           .then(isSaved => {
             if (!isSaved)
               return res.json({ question: "error in saving  in database" });
-            return res.json({ question: "question saved in database" });
+            const newAnswer = new Answer({
+              QuestionId: newQuestion._id,
+              authorId: authorId
+            });
+            newAnswer
+              .save()
+              .then(result => {
+                if (!result)
+                  return res.json({
+                    question: "question not saved in database"
+                  });
+
+                return res.json({ question: "question saved in database" });
+              })
+              .catch(err => {});
           })
           .catch(err => {
             console.log(`error occured ${err}`);
