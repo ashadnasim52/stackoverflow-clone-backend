@@ -9,14 +9,15 @@ const QuestionSchema = new Schema({
     type: String,
     required: true
   },
-  upvote: [
-    {
-      userId: {
-        type: String,
-        required: true
-      }
-    }
-  ],
+  upvote: [],
+  authorId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  authorName: {
+    type: String,
+    required: true
+  },
   comments: [
     {
       message: {
@@ -24,6 +25,10 @@ const QuestionSchema = new Schema({
         required: true
       },
       userName: {
+        type: String,
+        required: true
+      },
+      userId: {
         type: String,
         required: true
       },
