@@ -7,7 +7,7 @@ const passport = require("passport");
 const authjs = require("./routes/api/auth");
 const profile = require("./routes/api/profile");
 const question = require("./routes/api/question");
-const answer = require("./model/Answer");
+const answer = require("./routes/api/answer");
 
 //importing
 const utilsMongoose = require("./utils/mongoose");
